@@ -1,0 +1,30 @@
+{
+  "name": "markdown-mathmode-to-vinyl",
+  "version": "1.0.0",
+  "description": "Convert LaTeX equations in markdown to vinyl objects",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rreusser/markdown-mathmode-to-vinyl.git"
+  },
+  "keywords": [
+    "markdown",
+    "equations",
+    "latex",
+    "gulp",
+    "mathmode"
+  ],
+  "author": "Ricky Reusser",
+  "license": "MIT",
+  "devDependencies": {
+    "transform-markdown-mathmode": "^0.1.4"
+  },
+  "dependencies": {
+    "through2": "^2.0.0",
+    "transform-markdown-mathmode": "^0.1.4",
+    "vinyl": "^0.5.0"
+  }
+}
