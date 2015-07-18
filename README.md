@@ -2,12 +2,12 @@
 
 # WIP
 
-Separate a stream of markdown with embedded LaTeX equations into a stream of separate markdown and LaTeX vinyl files
+Separate a stream of markdown with embedded LaTeX equations into a stream of separate markdown and LaTeX [vinyl](https://github.com/wearefractal/vinyl) files
 
 
 ## Introduction
 
-Extract equations from a markdown document using the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module. The markdown goes in one end of the stream as a file object. The equations get transformed by some function, the original file gets pushed out the stream as a file, and each equation gets pushed as a separate file. The tex files presumably get wrapped in a document, rendered, and converted as the next steps in the pipeline. This is obviously amenable to a gulp plugin, but whether this will *be* a gulp plugin or whether it will get wrapped in a gulp plugin remains to be seen.
+Extract equations from a markdown document using the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module. The markdown goes in one end of the stream as a file object. The equations get transformed by some function, the original file gets pushed out the stream as a [vinyl file](https://github.com/wearefractal/vinyl), and each equation gets pushed as a separate [vinyl file](https://github.com/wearefractal/vinyl). The tex files presumably get wrapped in a document, rendered, and converted as the next steps in the pipeline. This is obviously amenable to a gulp plugin, but whether this will *be* a gulp plugin or whether it will get wrapped in a gulp plugin remains to be seen.
 
 
 ## Example
