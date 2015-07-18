@@ -1,6 +1,6 @@
 # markdown-mathmode-to-vinyl
 
-[![Build Status](https://travis-ci.org/rreusser/markdown-mathmode-to-vinyl.svg)](https://travis-ci.org/rreusser/markdown-mathmode-to-vinyl) [![npm version](https://badge.fury.io/js/markdown-mathmode-to-vinyl.svg)](http://badge.fury.io/js/markdown-mathmode-to-vinyl) [![Dependency Status](https://david-dm.org/rreusser/markdown-mathmode-to-vinyl.svg)](https://david-dm.org/rreusser/markdown-mathmode-to-vinyl)
+# WIP
 
 Separate a stream of markdown with embedded LaTeX equations into a stream of separate markdown and LaTeX vinyl files
 
