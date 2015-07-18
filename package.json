@@ -1,6 +1,6 @@
 {
   "name": "markdown-mathmode-to-vinyl",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Convert LaTeX equations in markdown to vinyl objects",
   "main": "lib/index.js",
   "scripts": {
