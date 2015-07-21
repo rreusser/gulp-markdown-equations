@@ -91,6 +91,15 @@ $ gulp mdtex
 API documentation in its way!
 
 
+## Installation
+
+To install, run
+
+```bash
+$ npm install gulp-markdown-equations
+```
+
+
 ## Testing
 
 Tests on the way too...
