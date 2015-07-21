@@ -1,6 +1,6 @@
 {
   "name": "gulp-markdown-equations",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A gulp plugin that makes it easy to replace latex equations in a markdown file with rendered images",
   "main": "lib/index.js",
   "scripts": {
