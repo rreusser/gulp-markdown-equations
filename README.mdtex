@@ -1,6 +1,6 @@
 # gulp-markdown-equations
 
-A gulp plugin that makes it easy to replace latex equations in a markdown file with rendered images
+A gulp plugin that makes it easy to replace markdown latex equations with rendered images
 
 
 ## Introduction
