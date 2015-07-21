@@ -6,19 +6,24 @@ var test = require('tape')
 
 test('processes a file',function(t) {
 
+  var equations = {}
   var markdownFile, extractor
 
   markdownFile = new File({
     path: "./test/sample.mdtex",
-    contents: new Buffer("A parabola has the equation $y = x^2$, while\n"+
-                         "a hyperbola has the equation $y = 1/x$")
+    contents: new Buffer("A parabola has the equation $[name=parabola] y = x^2$, while\n"+
+                         "a hyperbola has the equation $[name=hyperbola] y = 1/x$")
   });
 
-  extractor = transformer()
+  extractor =
   extractor.write(markdownFile)
   extractor.end()
 
-  extractor.on('data',console.log)
+  extractor.on('data',function(file) {
+    if( file.extname !== '.tex' ) return
+    console.log('file:',file.basename)
+    equations.rewrite(file)('<img src="...">')
+  })
 
   t.end()
 })

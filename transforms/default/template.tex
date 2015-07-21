@@ -1,0 +1,12 @@
+\documentclass[{{fontSize}}]{standalone}
+\usepackage{adjustbox}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath, amssymb, graphics, setspace}
+\newcommand{\mathsym}[1]\{{}}
+\newcommand{\unicode}[1]\{{}}
+
+\begin{document}
+  \begin{adjustbox}{margin={{margin}} }${{#if display}}\displaystyle{{/if}} {{rawTex}}$\end{adjustbox}
+\end{document}
