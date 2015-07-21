@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "entities": "^1.1.1",
+    "gulp-util": "^3.0.6",
     "handlebars": "^3.0.3",
     "image-size": "^0.3.5",
     "md5": "^2.0.0",
