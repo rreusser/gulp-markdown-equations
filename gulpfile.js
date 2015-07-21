@@ -28,8 +28,8 @@ gulp.task('mdtex',function() {
     .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
       sub.complete(file,function(cb,meta) {
-        var img = '<img alt="'+meta.alt+'" style="vertical-align:middle" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
-        meta.display ? cb('<div style="text-align:center">'+img+'</div>') : cb(img)
+        var img = '<img alt="'+meta.alt+'" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
+        meta.display ? cb('<p align="center">'+img+'</p>') : cb(img)
       })
     }))
     .pipe(texFilter.restore())
