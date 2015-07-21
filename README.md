@@ -50,7 +50,7 @@ gulp.task('mdtex',function() {
   return gulp.src('*.mdtex')
     .pipe(eqSub)
 
-    // Separate the equations:
+    // Filter to operate on *.tex documents:
     .pipe(texFilter)
 
     // Render the equations to pdf:
@@ -62,8 +62,11 @@ gulp.task('mdtex',function() {
     // Send them to the images folder:
     .pipe(gulp.dest('images'))
 
-    // Match the output images up with the markdown input so that we can use the resulting
-    // metadata to construct html that replaces the original equations:
+    // Match the output images up with the closures that are still waiting
+    // on their callbacks from the `.pipe(eqSub)` step above. That means
+    // we can use metadata from the image output all the way back  up in
+    // the original transform. Sweet!
+    //
     .pipe(tap(function(file) {
       eqSub.complete(file,function(cb,meta) {
         var img = '<img alt="'+meta.alt+'" valign="middle" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
@@ -71,7 +74,7 @@ gulp.task('mdtex',function() {
       })
     }))
 
-    // Grab the original markdown file that's now complete:
+    // Restore and then change filters to operate on the *.md document:
     .pipe(texFilter.restore()).pipe(mdFilter)
 
     // Output in the current directory:
