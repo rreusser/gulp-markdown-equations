@@ -23,7 +23,7 @@ Of course it's gulp plugin though, so that means you can really do whatever you 
 
 The following is a gulp task that locates equations in markdown, renders them, and lets you do whatever you want with the result! First things first, here's the data flow:
 
-<p align="center"><img src="docs/images/flowchart.png" width="392" height="388"></p>
+<p align="center"><img src="docs/images/flowchart.png" width="408" height="460"></p>
 
 ```javascript
 var gulp = require('gulp')
