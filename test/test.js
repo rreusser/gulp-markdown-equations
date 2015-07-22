@@ -4,6 +4,8 @@ var test = require('tape')
   , transformer = require('../lib')
   , File = require('vinyl')
 
+require('./preprocessor')
+
 test('processes a file',function(t) {
 
   var equations = {}

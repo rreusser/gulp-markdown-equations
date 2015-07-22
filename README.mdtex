@@ -91,7 +91,27 @@ $ gulp mdtex
 
 ## API
 
-API documentation in its way!
+### Preprocessor
+
+The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. Its job is to extract parameters and return them as key/value pairs. This is just a quick and dirty way to set equation-specific configuration. A preprocess must return data in the format:
+
+```javascript
+{
+  params: <associative array of key/value pairs>
+  content: <string>
+}
+```
+
+The default preprocessor is `require('gulp-markdown-equations/preprocessor/default')`. Sample usage:
+
+```javascript
+var pre = require('gulp-markdown-equations/preprocessor/default')`
+
+pre("[name=parabola][margin=10pt]y=x^2")
+
+// Returns:
+// { params: { name: "parabola", margin: "10pt" }, content: "y=x^2" }
+```
 
 
 ## Installation
