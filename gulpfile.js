@@ -24,7 +24,7 @@ gulp.task('mdtex',function() {
 
     .pipe(texFilter)
     .pipe(latex())
-    .pipe(pdftocairo({format: 'png', resolution:288}))
+    .pipe(pdftocairo({format: 'png', resolution:270}))
     .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
       sub.complete(file,function(cb,meta) {

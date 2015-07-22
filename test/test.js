@@ -5,6 +5,7 @@ var test = require('tape')
   , File = require('vinyl')
 
 require('./preprocessor')
+require('./templator')
 
 test('processes a file',function(t) {
 

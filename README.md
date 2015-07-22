@@ -5,9 +5,9 @@ A gulp plugin that makes it easy to replace markdown latex equations with render
 
 ## Introduction
 
-This module exposes the tools necessary to to substitute <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="55.5" height="20.5"> equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
+This module exposes the tools necessary to to substitute <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
 
-This means you can just mix <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="55.5" height="20.5"> into your markdown document. For example,
+This means you can just mix <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> into your markdown document. For example,
 
 ```markdown
 It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equations like $$\frac{D\rho}{Dt} = 0.$$
@@ -15,7 +15,7 @@ It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equation
 
 gets transformed into:
 
-It handles inline equations like <img alt="&bsol;nabla &bsol;cdot &bsol;vec&lcub;u&rcub; &equals; 0" valign="middle" src="docs/images/nabla-cdot-vecu-0-ea483fbc29.png" width="79" height="16.5"> and display equations like <p align="center"><img alt="&bsol;frac&lcub;D&bsol;rho&rcub;&lcub;Dt&rcub; &equals; 0&period;" valign="middle" src="docs/images/fracdrhodt-0-90f9ef6287.png" width="78.5" height="61"></p>
+It handles inline equations like <img alt="&bsol;nabla &bsol;cdot &bsol;vec&lcub;u&rcub; &equals; 0" valign="middle" src="docs/images/nabla-cdot-vecu-0-ea483fbc29.png" width="74" height="15.5"> and display equations like <p align="center"><img alt="&bsol;frac&lcub;D&bsol;rho&rcub;&lcub;Dt&rcub; &equals; 0&period;" valign="middle" src="docs/images/fracdrhodt-0-90f9ef6287.png" width="73.5" height="57"></p>
 
 Of course it's gulp plugin though, so that means you can really do whatever you want with it!
 
@@ -91,14 +91,19 @@ $ gulp mdtex
 
 ## API
 
+
+## Internals
+
+Unless you want to submit a PR to fix some corner cases or improve the behavior, you probably won't have to muck around with this stuff. The only internals here are really just a preprocessor that lets you configure parameters for each equation and a templator that actually inserts the equation into a <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> template.
+
 ### Preprocessor
 
-The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. Its job is to extract parameters and return them as key/value pairs. This is just a quick and dirty way to set equation-specific configuration. A preprocess must return data in the format:
+The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. This is just a quick and dirty way to set equation-specific configuration. Its job is to extract parameters and return them as key/value pairs. A preprocessor must return `params` and `content`, e.g.:
 
 ```javascript
 {
-  params: <associative array of key/value pairs>
-  text: <string>
+  params: {key1: "value1", key2: "value2"},
+  content: "<latex equation>"
 }
 ```
 
@@ -110,8 +115,28 @@ var pre = require('gulp-markdown-equations/preprocessor/default')`
 pre("[name=parabola][margin=10pt]y=x^2")
 
 // Returns:
-// { params: { name: "parabola", margin: "10pt" }, text: "y=x^2" }
+// { params: { name: "parabola", margin: "10pt" }, content: "y=x^2" }
 ```
+
+**NB**: For the default preprocessor, any leading spaces in the string will prevent parameters from working. This is by design so that it doesn't interfer with anything <img alt="&bsol;TeX" valign="middle" src="docs/images/tex-2cf06219dd.png" width="38" height="19">. So `$[margin=10pt 0pt] y=x$` will render <img alt="y&equals;x" valign="middle" src="docs/images/yx-5a14de7a16.png" width="83" height="12"> with a 10pt margin on the sides, while `$ [margin=10pt 0pt] y=x$` will render: <img alt="&lsqb;margin&equals;10pt 0pt&rsqb; y&equals;x" valign="middle" src="docs/images/margin10pt-0pt-yx-aafcc1af8c.png" width="203.5" height="21">.
+
+### Templator
+
+The templator's job is to insert <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> into a template. It receives configuration variables with the following precedence:
+
+1. parameters extracted by the preprocessor
+2. display/inline config passed to the transform
+3. default disply/inline config
+
+By default, the delimiter (`$$` vs `$`) results in either `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is `require('gulp-markdown-equations/templator/default')`, but in general it's a function of format:
+
+```javscript
+function templator( content, parameters ) {
+  // your logic
+  return "\\documentclass... <latex>"
+}
+```
+
 
 
 ## Installation

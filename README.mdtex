@@ -48,6 +48,9 @@ gulp.task('mdtex',function() {
   })
 
   return gulp.src('*.mdtex')
+
+    // Locate equations in the markdown stream, preprocess them, insert them
+    // into a latex template, and pass them as separate *.tex file objects:
     .pipe(eqSub)
 
     // Filter to operate on *.tex documents:
@@ -82,7 +85,7 @@ gulp.task('mdtex',function() {
 })
 ```
 
-The task is the run with
+The task is the run with:
 
 ```bash
 $ gulp mdtex
@@ -91,14 +94,19 @@ $ gulp mdtex
 
 ## API
 
+
+## Internals
+
+Unless you want to submit a PR to fix some corner cases or improve the behavior, you probably won't have to muck around with this stuff. The only internals here are really just a preprocessor that lets you configure parameters for each equation and a templator that actually inserts the equation into a $\LaTeX$ template.
+
 ### Preprocessor
 
-The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. Its job is to extract parameters and return them as key/value pairs. This is just a quick and dirty way to set equation-specific configuration. A preprocess must return data in the format:
+The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. This is just a quick and dirty way to set equation-specific configuration. Its job is to extract parameters and return them as key/value pairs. A preprocessor must return `params` and `content`, e.g.:
 
 ```javascript
 {
-  params: <associative array of key/value pairs>
-  content: <string>
+  params: {key1: "value1", key2: "value2"},
+  content: "<latex equation>"
 }
 ```
 
@@ -112,6 +120,26 @@ pre("[name=parabola][margin=10pt]y=x^2")
 // Returns:
 // { params: { name: "parabola", margin: "10pt" }, content: "y=x^2" }
 ```
+
+**NB**: For the default preprocessor, any leading spaces in the string will prevent parameters from working. This is by design so that it doesn't interfer with anything $\TeX$. So `$[margin=10pt 0pt] y=x$` will render $[margin=10pt 0pt]y=x$ with a 10pt margin on the sides, while `$ [margin=10pt 0pt] y=x$` will render: $ [margin=10pt 0pt] y=x $.
+
+### Templator
+
+The templator's job is to insert $\LaTeX$ into a template. It receives configuration variables with the following precedence:
+
+1. parameters extracted by the preprocessor
+2. display/inline config passed to the transform
+3. default disply/inline config
+
+By default, the delimiter (`$$` vs `$`) results in either `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is `require('gulp-markdown-equations/templator/default')`, but in general it's a function of format:
+
+```javscript
+function templator( content, parameters ) {
+  // your logic
+  return "\\documentclass... <latex>"
+}
+```
+
 
 
 ## Installation
