@@ -50,7 +50,7 @@ gulp.task('mdtex',function() {
   var mdFilter = filter('*.md')
 
   // Instantiate the transform and set some defaults:
-  var eqSub = mdEq({
+  var transform = mdEq({
     defaults: {
       display: { margin: '1pt' },
       inline: {margin: '1pt'}
@@ -61,7 +61,7 @@ gulp.task('mdtex',function() {
 
     // Locate equations in the markdown stream and pass them as separate
     // *.tex file objects:
-    .pipe(eqSub)
+    .pipe(transform)
 
     // Filter to operate on *.tex documents:
     .pipe(texFilter)
@@ -76,12 +76,13 @@ gulp.task('mdtex',function() {
     .pipe(gulp.dest('images'))
 
     // Match the output images up with the closures that are still waiting
-    // on their callbacks from the `.pipe(eqSub)` step above. That means
+    // on their callbacks from the `.pipe(transform)` step above. That means
     // we can use metadata from the image output all the way back  up in
     // the original transform. Sweet!
     .pipe(tap(function(file) {
-      eqSub.completeSync(file,function() {
-        var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+'" width="'+this.width/2+'" height="'+this.height/2+'">'
+      transform.completeSync(file,function() {
+        var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+
+                  '" width="'+this.width/2+'" height="'+this.height/2+'">'
         return this.display ? '<p align="center">'+img+'</p>' : img
       })
     }))
