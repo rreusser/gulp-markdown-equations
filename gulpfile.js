@@ -9,7 +9,7 @@ var gulp = require('gulp')
   , path = require('path')
 
 function rawgit(rel) {
-  return path.join('https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master', rel)
+  return 'https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/' + rel
 }
 
 gulp.task('mdtex',function() {
