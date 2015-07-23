@@ -6,7 +6,7 @@ A gulp plugin that makes it easy to replace markdown latex equations with render
 
 ## Introduction
 
-This module exposes the tools necessary to to substitute $\LaTeX$ equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
+This module exposes the tools necessary to to transform $\LaTeX$ equations in a markdown document into rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
 
 This means you can just mix $\LaTeX$ into your markdown document. For example,
 

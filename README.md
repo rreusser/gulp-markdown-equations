@@ -6,7 +6,7 @@ A gulp plugin that makes it easy to replace markdown latex equations with render
 
 ## Introduction
 
-This module exposes the tools necessary to to substitute <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
+This module exposes the tools necessary to to transform <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> equations in a markdown document into rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
 
 This means you can just mix <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> into your markdown document. For example,
 
