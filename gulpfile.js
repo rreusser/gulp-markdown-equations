@@ -18,8 +18,8 @@ gulp.task('mdtex',function() {
   var mdFilter = filter('*.md')
   var sub = eqSub({
     defaults: {
-      display: { margin: '1pt 5pt' },
-      inline: {margin: '0 1pt 0pt 0pt'}
+      display: { margin: '1pt 5pt', fontSize: '11pt' },
+      inline: { margin: '0 1pt 0pt 0pt', fontSize: '11pt' }
     }
   })
 
