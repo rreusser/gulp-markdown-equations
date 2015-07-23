@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "entities": "^1.1.1",
-    "equation-to-latex": "^1.0.1",
+    "equation-to-latex": "^1.1.0",
     "gulp-util": "^3.0.6",
     "handlebars": "^3.0.3",
     "image-size": "^0.3.5",

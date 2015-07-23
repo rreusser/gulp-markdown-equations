@@ -107,6 +107,7 @@ test('gulp-markdown-equations: tex is extracted',function(t) {
     cb()
   }).on('end',t.end)
 })
+
 test('gulp-markdown-equations: preprocesses and inserts params',function(t) {
   testBehavior( fixtures['sample.mdtex'], {}, function(cb) {
     t.equal( this.foo, 'bar', 'parsed and received its params')
@@ -167,5 +168,14 @@ test('passes a null file',function(t) {
   })
 })
 
+test('gulp-markdown-equations: usepackages',function(t) {
+  testBehavior( fixtures['sample.mdtex'], {
+      usepackages: ['package1', 'package2']
+    }, function(cb) {
+    t.assert( this.equation.templated.match( /usepackage\{\s*package1\s*\}/), 'contains \\usepackage{package1}' )
+    t.assert( this.equation.templated.match( /usepackage\{\s*package2\s*\}/), 'contains \\usepackage{package2}' )
+    cb()
+  }).on('end',t.end)
+})
 
 
