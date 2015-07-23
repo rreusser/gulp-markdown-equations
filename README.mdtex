@@ -134,16 +134,15 @@ The metadata contains all information about the processed equation, including th
      templated: '\\documentclass[10pt] ... \\end{document}\n',
      filename: 'latex-d3a0aa2938.tex',
      file: <File "latex-d3a0aa2938.png" <Buffer 25 50 ... >>,
-     basename: 'latex-d3a0aa2938.tex',
-     callback: [Function] } }
+     basename: 'latex-d3a0aa2938.tex' } }
 ```
-
-**TODO**: Clean up file extensions^^^
 
 #### `.complete( file, callback )`
 An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` (e.g. `resultCallback('<img src="...">')`) and it will be inserted into the markdown document.
 
 
+
+## Internals
 
 ### Preprocessor
 
