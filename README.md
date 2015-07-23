@@ -80,9 +80,9 @@ gulp.task('mdtex',function() {
     // we can use metadata from the image output all the way back  up in
     // the original transform. Sweet!
     .pipe(tap(function(file) {
-      eqSub.complete(file,function(cb,meta) {
-        var img = '<img alt="'+meta.alt+'" valign="middle" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
-        meta.display ? cb('<p align="center">'+img+'</p>') : cb(img)
+      eqSub.completeSync(file,function() {
+        var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+'" width="'+this.width/2+'" height="'+this.height/2+'">'
+        return this.display ? '<p align="center">'+img+'</p>' : img
       })
     }))
 
