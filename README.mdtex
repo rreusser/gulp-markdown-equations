@@ -111,7 +111,7 @@ Create a gulp-compatible buffered file stream transform. Options are:
   - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
   - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
 - `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is [square-parameters](https://github.com/rreusser/square-parameters). If `null`, preprocessor step is skipped. See below for more details.
-- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated $\LaTeX$ document. If null, the original tex string will be passed through unmodified. Default templator is `require('gulp-markdown-equations/templator/default')`. See below for more detail.
+- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated $\LaTeX$ document. If null, the original tex string will be passed through unmodified. Default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex). See below for more detail.
 
 
 ### Methods:
@@ -142,13 +142,9 @@ An asynchronous version of `.complete()`. The format of the callback is `functio
 
 
 
-## Internals
-
-Unless you want to submit a PR to fix some corner cases or improve the behavior, you probably won't have to muck around with this stuff. The only internals here are really just a preprocessor that lets you configure parameters for each equation and a templator that actually inserts the equation into a $\LaTeX$ template.
-
 ### Preprocessor
 
-The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. The extracted parameters are merged into this equation's parameters. The default preprocessor is the module [square-parameters](https://github.com/rreusser/square-parameters). Sample usage:
+The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template in order to extract equation-specific config. The extracted parameters are merged into this equation's parameters. The default preprocessor [square-parameters](https://github.com/rreusser/square-parameters). Sample usage:
 
 ```javascript
 var pre = require('square-parameters')`
@@ -159,7 +155,7 @@ pre("[name=parabola][margin=10pt 0pt]y=x^2")
 
 ### Templator
 
-The templator's job is to insert $\LaTeX$ into a full $\LaTeX$ document. It receives configuration first from preprocessed parameters, then from the display/inline defaults passed as transform options. By default, the delimiters (`$$...$$` or `$...$`) add parameters `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is `require('gulp-markdown-equations/templator/default')`, but it will soon be moved to its own module. In general it's a function of form:
+The templator's job is to insert $\LaTeX$ into a full $\LaTeX$ document. It receives configuration first from preprocessed parameters, then from the display/inline defaults passed as transform options. By default, the delimiters (`$$...$$` or `$...$`) add parameters `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex), but in general it only must be a function of form:
 
 ```javscript
 function templator( content, parameters ) {
@@ -167,7 +163,6 @@ function templator( content, parameters ) {
   return "\\documentclass... <latex>"
 }
 ```
-
 
 
 ## Credits
