@@ -172,13 +172,7 @@ pre("[name=parabola][margin=10pt]y=x^2")
 
 ### Templator
 
-The templator's job is to insert $\LaTeX$ into a template. It receives configuration variables with the following precedence:
-
-1. parameters extracted by the preprocessor
-2. display/inline config passed to the transform
-3. default disply/inline config
-
-By default, the delimiter (`$$` vs `$`) results in either `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is `require('gulp-markdown-equations/templator/default')`, but in general it's a function of format:
+The templator's job is to insert $\LaTeX$ into a full $\LaTeX$ document. It receives configuration first from preprocessed parameters, then from the display/inline defaults passed as transform options. By default, the delimiters (`$$...$$` or `$...$`) add parameters `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is `require('gulp-markdown-equations/templator/default')`, but it will soon be moved to its own module. In general it's a function of form:
 
 ```javscript
 function templator( content, parameters ) {
