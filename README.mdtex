@@ -95,7 +95,7 @@ gulp.task('mdtex',function() {
 })
 ```
 
-The task is the run with:
+The task is run with:
 
 ```bash
 $ gulp mdtex
@@ -107,7 +107,7 @@ $ gulp mdtex
 #### `require('gulp-markdown-mathmode')( [options] )`
 Create a gulp-compatible buffered file stream transform. Options are:
 
-- `defaults`:
+- `defaults`: Parameters that get added to each equation object and passed to the $\LaTeX$ templator. A good example is setting default margins that can be overridden later on with config variables added to a specific equation.
   - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
   - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
 - `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is [square-parameters](https://github.com/rreusser/square-parameters). If `null`, preprocessor step is skipped. See below for more details.
