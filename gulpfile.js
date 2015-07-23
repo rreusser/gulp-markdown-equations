@@ -6,7 +6,11 @@ var gulp = require('gulp')
   , filter = require('gulp-filter')
   , latex = require('gulp-latex')
   , pdftocairo = require('gulp-pdftocairo')
+  , path = require('path')
 
+function rawgit(rel) {
+  return path.join('https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master', rel)
+}
 
 gulp.task('mdtex',function() {
 
@@ -24,11 +28,11 @@ gulp.task('mdtex',function() {
 
     .pipe(texFilter)
     .pipe(latex())
-    .pipe(pdftocairo({format: 'png', resolution:270}))
+    .pipe(pdftocairo({format: 'svg'}))
     .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
       sub.complete(file,function(cb) {
-        var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+'" width="'+this.width/2+'" height="'+this.height/2+'">'
+        var img = '<img alt="'+this.alt+'" valign="middle" src="'+rawgit(this.path)+'" width="'+this.width*2+'" height="'+this.height*2+'">'
         this.display ? cb('<p align="center">'+img+'</p>') : cb(img)
       })
     }))
