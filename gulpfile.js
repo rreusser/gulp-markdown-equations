@@ -27,9 +27,9 @@ gulp.task('mdtex',function() {
     .pipe(pdftocairo({format: 'png', resolution:270}))
     .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
-      sub.complete(file,function(cb,meta) {
-        var img = '<img alt="'+meta.alt+'" valign="middle" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
-        meta.display ? cb('<p align="center">'+img+'</p>') : cb(img)
+      sub.complete(file,function(cb) {
+        var img = '<img alt="'+this.alt+'" valign="middle" src="'+this.path+'" width="'+this.width/2+'" height="'+this.height/2+'">'
+        this.display ? cb('<p align="center">'+img+'</p>') : cb(img)
       })
     }))
     .pipe(texFilter.restore())

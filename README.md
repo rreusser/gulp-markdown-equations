@@ -1,13 +1,14 @@
 # gulp-markdown-equations
+[![Build Status](https://travis-ci.org/rreusser/gulp-markdown-equations.svg)](https://travis-ci.org/rreusser/gulp-markdown-equations) [![npm version](https://badge.fury.io/js/gulp-markdown-equations.svg)](http://badge.fury.io/js/gulp-markdown-equations) [![Dependency Status](https://david-dm.org/rreusser/gulp-markdown-equations.svg)](https://david-dm.org/rreusser/gulp-markdown-equations)
 
 A gulp plugin that makes it easy to replace markdown latex equations with rendered images
 
 
 ## Introduction
 
-This module exposes the tools necessary to to substitute <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
+This module exposes the tools necessary to to substitute <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> equations in a markdown document with rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
 
-This means you can just mix <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> into your markdown document. For example,
+This means you can just mix <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> into your markdown document. For example,
 
 ```markdown
 It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equations like $$\frac{D\rho}{Dt} = 0.$$
@@ -15,7 +16,7 @@ It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equation
 
 gets transformed into:
 
-It handles inline equations like <img alt="&bsol;nabla &bsol;cdot &bsol;vec&lcub;u&rcub; &equals; 0" valign="middle" src="docs/images/nabla-cdot-vecu-0-ea483fbc29.png" width="74" height="15.5"> and display equations like <p align="center"><img alt="&bsol;frac&lcub;D&bsol;rho&rcub;&lcub;Dt&rcub; &equals; 0&period;" valign="middle" src="docs/images/fracdrhodt-0-90f9ef6287.png" width="73.5" height="57"></p>
+It handles inline equations like <img alt="undefined" valign="middle" src="docs/images/nabla-cdot-vecu-0-6eeb39bd86.png" width="74" height="15.5"> and display equations like <p align="center"><img alt="undefined" valign="middle" src="docs/images/fracdrhodt-0-8bb9cfaad7.png" width="73.5" height="57"></p>
 
 Of course it's gulp plugin though, so that means you can really do whatever you want with it!
 
@@ -48,6 +49,9 @@ gulp.task('mdtex',function() {
   })
 
   return gulp.src('*.mdtex')
+
+    // Locate equations in the markdown stream, preprocess them, insert them
+    // into a latex template, and pass them as separate *.tex file objects:
     .pipe(eqSub)
 
     // Filter to operate on *.tex documents:
@@ -82,7 +86,7 @@ gulp.task('mdtex',function() {
 })
 ```
 
-The task is the run with
+The task is the run with:
 
 ```bash
 $ gulp mdtex
@@ -94,7 +98,7 @@ $ gulp mdtex
 
 ## Internals
 
-Unless you want to submit a PR to fix some corner cases or improve the behavior, you probably won't have to muck around with this stuff. The only internals here are really just a preprocessor that lets you configure parameters for each equation and a templator that actually inserts the equation into a <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> template.
+Unless you want to submit a PR to fix some corner cases or improve the behavior, you probably won't have to muck around with this stuff. The only internals here are really just a preprocessor that lets you configure parameters for each equation and a templator that actually inserts the equation into a <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> template.
 
 ### Preprocessor
 
@@ -118,11 +122,11 @@ pre("[name=parabola][margin=10pt]y=x^2")
 // { params: { name: "parabola", margin: "10pt" }, content: "y=x^2" }
 ```
 
-**NB**: For the default preprocessor, any leading spaces in the string will prevent parameters from working. This is by design so that it doesn't interfer with anything <img alt="&bsol;TeX" valign="middle" src="docs/images/tex-2cf06219dd.png" width="38" height="19">. So `$[margin=10pt 0pt] y=x$` will render <img alt="y&equals;x" valign="middle" src="docs/images/yx-5a14de7a16.png" width="83" height="12"> with a 10pt margin on the sides, while `$ [margin=10pt 0pt] y=x$` will render: <img alt="&lsqb;margin&equals;10pt 0pt&rsqb; y&equals;x" valign="middle" src="docs/images/margin10pt-0pt-yx-aafcc1af8c.png" width="203.5" height="21">.
+**NB**: For the default preprocessor, any leading spaces in the string will prevent parameters from working. This is by design so that it doesn't interfer with anything <img alt="undefined" valign="middle" src="docs/images/tex-1a55453e69.png" width="38" height="19">. So `$[margin=10pt 0pt] y=x$` will render <img alt="undefined" valign="middle" src="docs/images/yx-6e74074eea.png" width="83" height="12"> with a 10pt margin on the sides, while `$ [margin=10pt 0pt] y=x$` will render: <img alt="undefined" valign="middle" src="docs/images/margin10pt-0pt-yx-d5d87e8e7f.png" width="203.5" height="21">.
 
 ### Templator
 
-The templator's job is to insert <img alt="&bsol;LaTeX" valign="middle" src="docs/images/latex-ded093fb58.png" width="52" height="19"> into a template. It receives configuration variables with the following precedence:
+The templator's job is to insert <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> into a template. It receives configuration variables with the following precedence:
 
 1. parameters extracted by the preprocessor
 2. display/inline config passed to the transform

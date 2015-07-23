@@ -41,15 +41,15 @@ test('transforms a file',function(t) {
   testBehavior( fixtures['sample.mdtex'], defaults, function(cb) {
     numEq++
 
-    t.assert( this.basename.match(/^y-frac1x-[a-z0-9]{10}.tex/), 'has the correct filename')
-    t.equal( this.tex, 'y = \\frac{1}{x}', 'has the tex extracted')
-    t.equal( this.params.foo, 'bar', 'parsed and received its params')
-    t.assert( this.templated.match(/^\\documentclass/), 'got inserted into the latex template')
+    t.assert( this.equation.basename.match(/^y-frac1x-[a-z0-9]{10}.tex/), 'has the correct filename')
+    t.equal( this.equation.tex, 'y = \\frac{1}{x}', 'has the tex extracted')
+    t.equal( this.foo, 'bar', 'parsed and received its params')
+    t.assert( this.equation.templated.match(/^\\documentclass/), 'got inserted into the latex template')
 
-    if( this.params.display ) {
-      t.equal(this.params.baz, 'bop', 'receives default display mode config')
+    if( this.display ) {
+      t.equal(this.baz, 'bop', 'receives default display mode config')
     } else {
-      t.equal(this.params.beep, 'boop', 'receives default display mode config')
+      t.equal(this.beep, 'boop', 'receives default display mode config')
     }
 
     // Complete the transformation:
