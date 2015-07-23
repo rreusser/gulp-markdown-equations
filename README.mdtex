@@ -131,10 +131,8 @@ The metadata contains all information about the processed equation, including th
   equation:
    { tex: '\\LaTeX',
      alt: '&bsol;LaTeX',
-     templated: '\\documentclass[10pt] ... \\end{document}\n',
-     filename: 'latex-d3a0aa2938.tex',
-     file: <File "latex-d3a0aa2938.png" <Buffer 25 50 ... >>,
-     basename: 'latex-d3a0aa2938.tex' } }
+     templated: '\\documentclass[10pt] ... \end{document}\n',
+     file: <File "latex-d3a0aa2938.png" <Buffer 89 50 ... >> } }
 ```
 
 #### `.complete( file, callback )`
