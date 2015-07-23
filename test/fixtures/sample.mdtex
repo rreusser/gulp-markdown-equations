@@ -1,1 +1,1 @@
-An inline hyperbola looks like $y = \frac{1}{x}$, and a display hyperbola looks like $$y = \frac{1}{x}$$
+An inline hyperbola looks like $[foo=bar]y = \frac{1}{x}$, and a display hyperbola looks like $$[foo=bar]y = \frac{1}{x}$$

@@ -20,6 +20,7 @@
   "author": "Ricky Reusser",
   "license": "MIT",
   "devDependencies": {
+    "glob": "^5.0.14",
     "gulp-filter": "^2.0.2",
     "gulp-latex": "^0.1.2",
     "gulp-pdftocairo": "^0.1.2",

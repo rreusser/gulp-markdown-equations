@@ -1,4 +1,4 @@
-# gulp-markdown-equations
+# gulp-markdown-equations [![Build Status](https://travis-ci.org/rreusser/gulp-markdown-equations.svg)](https://travis-ci.org/rreusser/gulp-markdown-equations) [![npm version](https://badge.fury.io/js/gulp-markdown-equations.svg)](http://badge.fury.io/js/gulp-markdown-equations) [![Dependency Status](https://david-dm.org/rreusser/gulp-markdown-equations.svg)](https://david-dm.org/rreusser/gulp-markdown-equations)
 
 A gulp plugin that makes it easy to replace markdown latex equations with rendered images
 

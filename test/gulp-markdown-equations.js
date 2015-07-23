@@ -2,32 +2,90 @@
 
 var test = require('tape')
   , gulpMarkdownEquations = require('../lib')
+  , tap = require('gulp-tap')
   , File = require('vinyl')
+  , fixtures = require('./fixtures')
 
-test('processes a file',function(t) {
+//test.createStream().pipe(require('tap-spec')()).pipe(process.stdout);
 
-  var equations = {}
-  var markdownFile, mdeq
+function testBehavior(input, defaults, eqCallback, mdCallback) {
 
-  markdownFile = new File({
-    path: "./test/sample.mdtex",
-    contents: new Buffer("A parabola has the equation $[name=parabola] y = x^2$, while\n"+
-                         "a hyperbola has the equation $[name=hyperbola] y = 1/x$")
-  });
+  var mdeq = gulpMarkdownEquations({defaults: defaults})
 
-  mdeq = gulpMarkdownEquations()
-  mdeq.write(markdownFile)
+  mdeq.write(new File({ path: 'sample.mdtex', contents: input }))
   mdeq.end()
 
-  mdeq.on('data',function(file) {
+  mdeq.pipe(tap(function(file) {
+    if( file.contents === null ) return
+    if( file.basename.match(/\.md$/) ) {
+      mdCallback.bind(file)()
+    } else {
+      mdeq.complete(file,eqCallback)
+    }
+  }))
 
-    console.log('got:',file)
-    if( file.extname !== '.tex' ) return
-    console.log('file:',file.basename)
-    equations.rewrite(file)('<img src="...">')
+  return mdeq
+}
+
+
+
+test('transforms a file',function(t) {
+
+  var numEq = 0, numMd = 0, md
+
+  var defaults = {
+    inline: { beep: 'boop' },
+    display: { baz: 'bop' }
+  }
+
+  testBehavior( fixtures['sample.mdtex'], defaults, function(cb) {
+    numEq++
+
+    t.assert( this.basename.match(/^y-frac1x-[a-z0-9]{10}.tex/), 'has the correct filename')
+    t.equal( this.tex, 'y = \\frac{1}{x}', 'has the tex extracted')
+    t.equal( this.params.foo, 'bar', 'parsed and received its params')
+    t.assert( this.templated.match(/^\\documentclass/), 'got inserted into the latex template')
+
+    if( this.params.display ) {
+      t.equal(this.params.baz, 'bop', 'receives default display mode config')
+    } else {
+      t.equal(this.params.beep, 'boop', 'receives default display mode config')
+    }
+
+    // Complete the transformation:
+    cb('equation-number-' + numEq)
+
+  }, function() {
+    numMd++
+
+    // Markdown file:
+    md = this.contents.toString()
+
+    t.assert( md.match(/equation-number-1/), 'contains the first equation')
+    t.assert( md.match(/equation-number-2/), 'contains the second equation')
+
+  }).on('end',function() {
+    t.equal(numEq, 2, 'got two equations')
+    t.equal(numMd, 1, 'got one markdown file')
+    t.end()
   })
 
-  t.end()
+})
+
+
+
+test('passes a null file',function(t) {
+  var numEq = 0, numMd = 0, md
+
+  testBehavior( null, {}, function(cb) {
+    numEq++
+  }, function() {
+    numMd++
+  }).on('end',function() {
+    t.equal(numEq, 0, 'got no *.tex')
+    t.equal(numMd, 0, 'got no *.md')
+    t.end()
+  })
 })
 
 
