@@ -37,7 +37,7 @@ The following is a gulp task that locates equations in markdown, renders them, a
 
 ```javascript
 var gulp = require('gulp')
-  , mdEq = require('gulp-markdown-equations')
+  , mdEqs = require('gulp-markdown-equations')
   , tap = require('gulp-tap')
   , filter = require('gulp-filter')
   , latex = require('gulp-latex')
@@ -50,7 +50,7 @@ gulp.task('mdtex',function() {
   var mdFilter = filter('*.md')
 
   // Instantiate the transform and set some defaults:
-  var transform = mdEq({
+  var transform = mdEqs({
     defaults: {
       display: { margin: '1pt' },
       inline: {margin: '1pt'}
@@ -122,20 +122,23 @@ Once a file has been processed, you *must* tap into the stream and complete the 
 The metadata contains all information about the processed equation, including the fully processed file at this point in the pipeline. If image dimensions are available, they will be added. For example:
 
 ```javascript
-{ display: true,
-  inline: false,
-  foo: 'bar', // merged from default and preprocessed
-  path: 'y-frac1x-5b6edab4c6.tex',
-  width: 233,
-  height: 124,
+{ display: false,
+  inline: true,
+  margin: '0 1pt 0pt 0pt',
+  path: 'docs/images/latex-d3a0aa2938.png',
+  height: 38,
+  width: 104,
   equation:
-   { tex: 'y = \\frac{1}{x}',
-     alt: 'y &equals; &bsol;frac&lcub;1&rcub;&lcub;x&rcub;',
-     templated: '\\documentclass[10pt] ... \end{document}',
-     filename: 'y-frac1x-5b6edab4c6.tex',
-     file: <File "y-frac1x-5b6edab4c6.svg" <Buffer 5c 64 ... >>,
-     basename: 'y-frac1x-5b6edab4c6.tex' } }
+   { tex: '\\LaTeX',
+     alt: '&bsol;LaTeX',
+     templated: '\\documentclass[10pt] ... \\end{document}\n',
+     filename: 'latex-d3a0aa2938.tex',
+     file: <File "latex-d3a0aa2938.png" <Buffer 25 50 ... >>,
+     basename: 'latex-d3a0aa2938.tex',
+     callback: [Function] } }
 ```
+
+**TODO**: Clean up file extensions^^^
 
 #### `.complete( file, callback )`
 An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` (e.g. `resultCallback('<img src="...">')`) and it will be inserted into the markdown document.

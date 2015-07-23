@@ -6,6 +6,7 @@ var gulp = require('gulp')
   , filter = require('gulp-filter')
   , latex = require('gulp-latex')
   , pdftocairo = require('gulp-pdftocairo')
+  , changed = require('gulp-changed')
 
 
 gulp.task('mdtex',function() {
