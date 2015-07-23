@@ -5,6 +5,7 @@ var test = require('tape')
   , tap = require('gulp-tap')
   , File = require('vinyl')
   , fixtures = require('./fixtures')
+  , path = require('path')
 
 //test.createStream().pipe(require('tap-spec')()).pipe(process.stdout);
 
@@ -95,7 +96,7 @@ test('gulp-markdown-equations: correct result is inserted',function(t) {
 
 test('gulp-markdown-equations: has the correct filename',function(t) {
   testBehavior( fixtures['sample.mdtex'], {}, function(cb) {
-    t.assert( this.equation.basename.match(/^y-frac1x-[a-z0-9]{10}.tex/), 'has the correct filename')
+    t.assert( this.equation.file.basename.match(/^y-frac1x-[a-z0-9]{10}.tex/), 'has the correct filename')
     cb()
   }).on('end',t.end)
 })
