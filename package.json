@@ -25,10 +25,8 @@
     "gulp-latex": "^0.1.2",
     "gulp-pdftocairo": "^0.1.2",
     "gulp-tap": "^0.1.3",
-    "image-size": "^0.3.5",
     "tap-spec": "^4.0.2",
-    "tape": "^4.0.1",
-    "transform-markdown-mathmode": "^0.1.4"
+    "tape": "^4.0.1"
   },
   "dependencies": {
     "entities": "^1.1.1",
