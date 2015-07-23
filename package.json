@@ -36,6 +36,7 @@
     "md5": "^2.0.0",
     "parameterize": "0.0.7",
     "raw-body": "^2.1.2",
+    "square-parameters": "^1.0.2",
     "through2": "^2.0.0",
     "transform-markdown-mathmode": "^0.1.4",
     "util-extend": "^1.0.1",

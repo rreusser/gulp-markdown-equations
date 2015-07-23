@@ -110,7 +110,7 @@ Create a gulp-compatible buffered file stream transform. Options are:
 - `defaults`:
   - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
   - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
-- `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is `require('gulp-markdown-equations/preprocessor/default')`. If `null`, preprocessor step will be skipped. See below for more details.
+- `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is [square-parameters](https://github.com/rreusser/square-parameters). If `null`, preprocessor step is skipped. See below for more details.
 - `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> document. If null, the original tex string will be passed through unmodified. Default templator is `require('gulp-markdown-equations/templator/default')`. See below for more detail.
 
 
@@ -148,27 +148,14 @@ Unless you want to submit a PR to fix some corner cases or improve the behavior,
 
 ### Preprocessor
 
-The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. This is just a quick and dirty way to set equation-specific configuration. Its job is to extract parameters and return them as key/value pairs. A preprocessor must return `params` and `content`, e.g.:
+The preprocessor is just a function that operates on the content of an equation before it's inserted in the LaTeX template. The extracted parameters are merged into this equation's parameters. The default preprocessor is the module [square-parameters](https://github.com/rreusser/square-parameters). Sample usage:
 
 ```javascript
-{
-  params: {key1: "value1", key2: "value2"},
-  content: "<latex equation>"
-}
+var pre = require('square-parameters')`
+
+pre("[name=parabola][margin=10pt 0pt]y=x^2")
+// => { params: { name: "parabola", margin: "10pt 0pt" }, content: "y=x^2" }
 ```
-
-The default preprocessor is `require('gulp-markdown-equations/preprocessor/default')`. Sample usage:
-
-```javascript
-var pre = require('gulp-markdown-equations/preprocessor/default')`
-
-pre("[name=parabola][margin=10pt]y=x^2")
-
-// Returns:
-// { params: { name: "parabola", margin: "10pt" }, content: "y=x^2" }
-```
-
-**NB**: For the default preprocessor, any leading spaces in the string will prevent parameters from working. This is by design so that it doesn't interfer with anything <img alt="undefined" valign="middle" src="docs/images/tex-1a55453e69.png" width="38" height="19">. So `$[margin=10pt 0pt] y=x$` will render <img alt="undefined" valign="middle" src="docs/images/yx-6e74074eea.png" width="83" height="12"> with a 10pt margin on the sides, while `$ [margin=10pt 0pt] y=x$` will render: <img alt="undefined" valign="middle" src="docs/images/margin10pt-0pt-yx-d5d87e8e7f.png" width="203.5" height="21">.
 
 ### Templator
 
