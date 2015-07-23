@@ -59,8 +59,8 @@ gulp.task('mdtex',function() {
 
   return gulp.src('*.mdtex')
 
-    // Locate equations in the markdown stream, preprocess them, insert them
-    // into a latex template, and pass them as separate *.tex file objects:
+    // Locate equations in the markdown stream and pass them as separate
+    // *.tex file objects:
     .pipe(eqSub)
 
     // Filter to operate on *.tex documents:
@@ -79,7 +79,6 @@ gulp.task('mdtex',function() {
     // on their callbacks from the `.pipe(eqSub)` step above. That means
     // we can use metadata from the image output all the way back  up in
     // the original transform. Sweet!
-    //
     .pipe(tap(function(file) {
       eqSub.complete(file,function(cb,meta) {
         var img = '<img alt="'+meta.alt+'" valign="middle" src="'+meta.path+'" width="'+meta.width/2+'" height="'+meta.height/2+'">'
