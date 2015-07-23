@@ -138,7 +138,7 @@ The metadata contains all information about the processed equation, including th
 ```
 
 #### `.complete( file, callback )`
-An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` and it will be inserted into the markdown document.
+An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` (e.g. `resultCallback('<img src="...">')`) and it will be inserted into the markdown document.
 
 
 
