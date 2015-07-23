@@ -95,6 +95,43 @@ $ gulp mdtex
 
 ## API
 
+### `require('gulp-markdown-mathmode')( [options] )`
+Create a gulp-compatible buffered file stream transform. Options are:
+
+- `defaults`:
+  - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
+  - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
+- `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default value is `require('gulp-markdown-equations/preprocessor/default')`. If `null`, preprocessor step will be skipped. See below for more details.
+- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated $\LaTeX$ document. If null, the original tex string will be passed through unmodified. See below for more detail.
+
+
+### Methods:
+
+### `.completeSync( file, callback )
+Once a file has been processed, you *must* tap into the stream and complete the markdown transformation. See above for an example. `callback` is executed with `this` set to an object containing equation metadata. The value you return is inserted into the markdown document.
+
+The metadata contains all information about the processed equation, including the fully processed file at this point in the pipeline. If image dimensions are available, they will be added. For example:
+
+```javascript
+{ display: true,
+  inline: false,
+  foo: 'bar', // merged from default and preprocessed
+  path: 'y-frac1x-5b6edab4c6.tex',
+  width: 233,
+  height: 124,
+  equation:
+   { tex: 'y = \\frac{1}{x}',
+     alt: 'y &equals; &bsol;frac&lcub;1&rcub;&lcub;x&rcub;',
+     templated: '\\documentclass[10pt] ... \end{document}',
+     filename: 'y-frac1x-5b6edab4c6.tex',
+     file: <File "y-frac1x-5b6edab4c6.svg" <Buffer 5c 64 ... >>,
+     basename: 'y-frac1x-5b6edab4c6.tex' } }
+```
+
+### `.complete( file, callback )
+An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` and it will be inserted into the markdown document.
+
+
 
 ## Internals
 
