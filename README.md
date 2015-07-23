@@ -6,9 +6,9 @@ A gulp plugin that makes it easy to replace markdown latex equations with render
 
 ## Introduction
 
-This module exposes the tools necessary to to transform <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> equations in a markdown document into rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
+This module exposes the tools necessary to to transform <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> equations in a markdown document into rendered raster or vector images. It uses the [transform-markdown-mathmode](https://www.npmjs.com/package/transform-markdown-mathmode) node module to locate and transform equations and reconnects with the gulp pipeline after the results have been rendered to complete the transformation using information from the result.
 
-This means you can just mix <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> into your markdown document. For example,
+This means you can just mix <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> into your markdown document. For example,
 
 ```markdown
 It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equations like $$\frac{D\rho}{Dt} = 0.$$
@@ -16,7 +16,7 @@ It handles inline equations like $\nabla \cdot \vec{u} = 0$ and display equation
 
 gets transformed into:
 
-It handles inline equations like <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/nabla-cdot-vecu-0-96d7f42286.svg" width="86" height="16"> and display equations like <p align="center"><img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/fracdrhodt-0-840b3631cd.svg" width="84" height="64"></p>
+It handles inline equations like <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/nabla-cdot-vecu-0-96d7f42286.svg" width="86" height="16"> and display equations like <p align="center"><img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/fracdrhodt-0-840b3631cd.svg" width="84" height="64"></p>
 
 Of course it's gulp plugin though, so that means you can really do whatever you want with it!
 
@@ -107,11 +107,11 @@ $ gulp mdtex
 #### `require('gulp-markdown-mathmode')( [options] )`
 Create a gulp-compatible buffered file stream transform. Options are:
 
-- `defaults`: Parameters that get added to each equation object and passed to the <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> templator. A good example is setting default margins that can be overridden later on with config variables added to a specific equation.
+- `defaults`: Parameters that get added to each equation object and passed to the <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> templator. A good example is setting default margins that can be overridden later on with config variables added to a specific equation.
   - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
   - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
 - `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is [square-parameters](https://github.com/rreusser/square-parameters). If `null`, preprocessor step is skipped. See below for more details.
-- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> document. If null, the original tex string will be passed through unmodified. Default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex). See below for more detail.
+- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> document. If null, the original tex string will be passed through unmodified. Default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex). See below for more detail.
 
 
 ### Methods:
@@ -155,7 +155,7 @@ pre("[name=parabola][margin=10pt 0pt]y=x^2")
 
 ### Templator
 
-The templator's job is to insert <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> into a full <img alt="undefined" valign="middle" src="https://cdn.rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> document. It receives configuration first from preprocessed parameters, then from the display/inline defaults passed as transform options. By default, the delimiters (`$$...$$` or `$...$`) add parameters `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex), but in general it only must be a function of form:
+The templator's job is to insert <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> into a full <img alt="undefined" valign="middle" src="https://rawgit.com/rreusser/gulp-markdown-equations/master/docs/images/latex-d7ee0d12c9.svg" width="60" height="20"> document. It receives configuration first from preprocessed parameters, then from the display/inline defaults passed as transform options. By default, the delimiters (`$$...$$` or `$...$`) add parameters `{display:true, inline: false}` or `{display:false, inline:true}`, respectively. The default templator is [equation-to-latex](https://github.com/rreusser/equation-to-latex), but in general it only must be a function of form:
 
 ```javscript
 function templator( content, parameters ) {
