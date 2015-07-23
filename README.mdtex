@@ -103,7 +103,7 @@ $ gulp mdtex
 
 ## API
 
-### `require('gulp-markdown-mathmode')( [options] )`
+#### `require('gulp-markdown-mathmode')( [options] )`
 Create a gulp-compatible buffered file stream transform. Options are:
 
 - `defaults`:
@@ -115,7 +115,7 @@ Create a gulp-compatible buffered file stream transform. Options are:
 
 ### Methods:
 
-### `.completeSync( file, callback )`
+#### `.completeSync( file, callback )`
 Once a file has been processed, you *must* tap into the stream and complete the markdown transformation. See above for an example. `callback` is executed with `this` set to an object containing equation metadata. The value you return is inserted into the markdown document.
 
 The metadata contains all information about the processed equation, including the fully processed file at this point in the pipeline. If image dimensions are available, they will be added. For example:
@@ -136,7 +136,7 @@ The metadata contains all information about the processed equation, including th
      basename: 'y-frac1x-5b6edab4c6.tex' } }
 ```
 
-### `.complete( file, callback )`
+#### `.complete( file, callback )`
 An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` and it will be inserted into the markdown document.
 
 
