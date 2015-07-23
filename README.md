@@ -20,6 +20,15 @@ It handles inline equations like <img alt="undefined" valign="middle" src="docs/
 
 Of course it's gulp plugin though, so that means you can really do whatever you want with it!
 
+
+## Installation
+
+To install, run:
+
+```bash
+$ npm install gulp-markdown-equations
+```
+
 ## Example
 
 The following is a gulp task that locates equations in markdown, renders them, and lets you do whatever you want with the result! First things first, here's the data flow:
@@ -101,18 +110,18 @@ Create a gulp-compatible buffered file stream transform. Options are:
 - `defaults`:
   - `inline`: an associative array of key/value pairs for inline equations, into which preprocessed parameters are merged
   - `display`: an associative array of key/value pairs for displaystyle equations, into which preprocessed parameters are merged
-- `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default value is `require('gulp-markdown-equations/preprocessor/default')`. If `null`, preprocessor step will be skipped. See below for more details.
-- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> document. If null, the original tex string will be passed through unmodified. See below for more detail.
+- `preprocessor`: a function that extracts equation-specific parameters. In other words, if your equation is `$[margin=10pt] y=x$`, the preprocessor extracts `{margin: '10pt'}`. Default preprocessor is `require('gulp-markdown-equations/preprocessor/default')`. If `null`, preprocessor step will be skipped. See below for more details.
+- `templator`: a function of format `function( tex, params ) {}` that receives the preprocessed `\LaTeX` and parameters and returns a templated <img alt="undefined" valign="middle" src="docs/images/latex-d3a0aa2938.png" width="52" height="19"> document. If null, the original tex string will be passed through unmodified. Default templator is `require('gulp-markdown-equations/templator/default')`. See below for more detail.
 
 
 ### Methods:
 
-### `.completeSync( file, callback )
+### `.completeSync( file, callback )`
 Once a file has been processed, you *must* tap into the stream and complete the markdown transformation. See above for an example. `callback` is executed with `this` set to an object containing equation metadata. The value you return is inserted into the markdown document.
 
 The metadata contains all information about the processed equation, including the fully processed file at this point in the pipeline. If image dimensions are available, they will be added. For example:
 
-``javascript
+```javascript
 { display: true,
   inline: false,
   foo: 'bar', // merged from default and preprocessed
@@ -126,9 +135,9 @@ The metadata contains all information about the processed equation, including th
      filename: 'y-frac1x-5b6edab4c6.tex',
      file: <File "y-frac1x-5b6edab4c6.svg" <Buffer 5c 64 ... >>,
      basename: 'y-frac1x-5b6edab4c6.tex' } }
-``
+```
 
-### `.complete( file, callback )
+### `.complete( file, callback )`
 An asynchronous version of `.complete()`. The format of the callback is `function( resultCallback ) { … }`. Once you've computed the value, you may pass the result to `resultCallback` and it will be inserted into the markdown document.
 
 
@@ -179,19 +188,6 @@ function templator( content, parameters ) {
 ```
 
 
-
-## Installation
-
-To install, run
-
-```bash
-$ npm install gulp-markdown-equations
-```
-
-
-## Testing
-
-Tests on the way too...
 
 ## Credits
 
