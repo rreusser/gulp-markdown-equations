@@ -30,12 +30,12 @@ gulp.task('mdtex',function() {
 
     .pipe(texFilter)
     .pipe(latex())
-    .pipe(pdftocairo({format: 'svg', resolution: 1000}))
+    .pipe(pdftocairo({format: 'svg'}))
     .pipe(gulp.dest('docs/images'))
     .pipe(tap(function(file) {
-      sub.complete(file,function(cb) {
+      sub.completeSync(file,function(cb) {
         var img = '<img alt="'+this.alt+'" valign="middle" width="' + this.width*1.8 + '" height="' + this.height*1.8 + '" src="'+giturl(this.path)+'">'
-        this.display ? cb('<p align="center">'+img+'</p>') : cb(img)
+        return this.display ? '<p align="center">'+img+'</p>' : img
       })
     }))
     .pipe(texFilter.restore())
