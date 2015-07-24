@@ -41,6 +41,13 @@ test('gulp-markdown-equations: a null templator passes tex through',function(t) 
   }).on('end',t.end)
 })
 
+test('gulp-markdown-equations: tex gets escaped and added as alt tag',function(t) {
+  testBehavior(fixtures['sample.mdtex'], { templator: null }, function(cb) {
+    t.equal( this.equation.alt, 'y &equals; &bsol;frac&lcub;1&rcub;&lcub;x&rcub;', 'tex shows up in alt tag' )
+    cb('test')
+  }).on('end',t.end)
+})
+
 test('gulp-markdown-equations: a null preprocessor skips params',function(t) {
   testBehavior(fixtures['sample.mdtex'], { preprocessor: null }, function(cb) {
     t.equal( this.foo, undefined, 'params are not parsed' )
