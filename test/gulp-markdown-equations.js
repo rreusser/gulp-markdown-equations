@@ -36,14 +36,14 @@ function testBehavior(input, options, eqCallback, mdCallback) {
 test('gulp-markdown-equations: a null templator passes tex through',function(t) {
   testBehavior(fixtures['sample.mdtex'], { templator: null }, function(cb) {
     t.equal( this.foo, 'bar', 'gets preprocessed config' )
-    t.equal( this.equation.templated, 'y = \\frac{1}{x}', 'tex is not templated' )
+    t.equal( this.templated, 'y = \\frac{1}{x}', 'tex is not templated' )
     cb('test')
   }).on('end',t.end)
 })
 
 test('gulp-markdown-equations: tex gets escaped and added as alt tag',function(t) {
   testBehavior(fixtures['sample.mdtex'], { templator: null }, function(cb) {
-    t.equal( this.equation.alt, 'y &equals; &bsol;frac&lcub;1&rcub;&lcub;x&rcub;', 'tex shows up in alt tag' )
+    t.equal( this.alt, 'y &equals; &bsol;frac&lcub;1&rcub;&lcub;x&rcub;', 'tex shows up in alt tag' )
     cb('test')
   }).on('end',t.end)
 })
